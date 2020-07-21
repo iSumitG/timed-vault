@@ -2,7 +2,7 @@
 
 from flask import Flask
 app = Flask(__name__)
-
+		
 @app.route('/')
 def hello_world():
     return 'Hello, World!'
@@ -14,8 +14,14 @@ def getKey():
 	if(isExpired(line1)):
 		pass
 	else:
-		pass
+		raise Exception("A lock is in progress")
 
 @app.route('/setkey')
 def setKey():
-	pass
+	f = open("key.txt", rw)
+	line1 = f.readline()
+	if(isExpired(line1)):
+		# proceed with setting the key
+		pass
+	else:
+		raise Exception("A lock is in progress")
